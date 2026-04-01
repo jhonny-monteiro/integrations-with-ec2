@@ -37,3 +37,5 @@ jobs:
           export DBNAME=${{ secrets.DBNAME }}
           export DBPORT=${{ secrets.DPPORT }}
           export PORT=8000
+          chmod +x main
+          nohup ./main &

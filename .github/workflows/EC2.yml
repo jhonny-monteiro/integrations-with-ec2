@@ -32,11 +32,12 @@ jobs:
         port: 22
         script: |
             pkill main || true
-            export HOST=${{ secrets.DBHOST }}
-            export USER=${{ secrets.DBUSER }}
-            export PASSWORD=${{ secrets.DBPASSWORD }}
-            export DBNAME=${{ secrets.DBNAME }}
-            export DBPORT=${{ secrets.DBPORT }}
-            export PORT=8000
             chmod +x main
-            nohup ./main > nohup.out 2> nohup.err < /dev/null &
+            nohup env \
+              HOST=${{ secrets.DBHOST }} \
+              DB_USER=${{ secrets.DBUSER }} \
+              PASSWORD=${{ secrets.DBPASSWORD }} \
+              DBNAME=${{ secrets.DBNAME }} \
+              DBPORT=${{ secrets.DBPORT }} \
+              PORT=8000 \
+              ./main > nohup.out 2> nohup.err < /dev/null &

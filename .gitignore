@@ -1,0 +1,9 @@
+# Chaves privadas - NUNCA commitar
+*.pem
+*.key
+
+# Dados locais do Postgres
+postgres-data/
+
+# Binário compilado
+main

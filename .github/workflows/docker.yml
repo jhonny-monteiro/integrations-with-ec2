@@ -30,7 +30,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: jhonnymonteiro/go_ci:${{github.ref_name}}              
+        tags: jhonnymonteiro/go_ci:${{github.run_number}}              
                   
 
 

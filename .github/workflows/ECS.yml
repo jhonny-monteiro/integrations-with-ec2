@@ -44,3 +44,10 @@ jobs:
         cluster: API-Go
         wait-for-service-stability: true
     
+    
+   
+    - name: Requisição
+      continue-on-error: true
+      run: sleep 30s ; wget LB-API-Go-363554340.us-east-2.elb.amazonaws.com:8000/jhonny
+      
+    

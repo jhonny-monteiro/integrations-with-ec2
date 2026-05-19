@@ -65,6 +65,8 @@ jobs:
           sleep 15
         done
         echo "Timeout: ALB não ficou healthy em 10 minutos"
+        echo "===== LOGS DO CONTAINER ====="
+        aws logs tail /ecs/homolog/Go-API --since 30m --region us-west-2 || true
         exit 1
 
     - name: Roda teste de carga

@@ -52,11 +52,22 @@ jobs:
         echo "	tasks = [UserTasks]" >> locustfile.py
         echo "	wait_time = between(1, 5)" >> locustfile.py
 
+    - name: Espera ALB ficar healthy
+      run: |
+        URL="${{ steps.URL.outputs.stdout }}"
+        echo "Aguardando ALB http://$URL/leo responder 2xx..."
+        for i in $(seq 1 40); do
+          if curl -sf "http://$URL/leo" > /dev/null; then
+            echo "ALB healthy na tentativa $i!"
+            exit 0
+          fi
+          echo "Tentativa $i/40 — aguardando 15s..."
+          sleep 15
+        done
+        echo "Timeout: ALB não ficou healthy em 10 minutos"
+        exit 1
+
     - name: Roda teste de carga
-      run: sleep 60s ; locust -f locustfile.py --headless -u 10 -r 5 --run-time 60s -H http://${{ steps.URL.outputs.stdout }}
-        
+      run: locust -f locustfile.py --headless -u 10 -r 5 --run-time 60s -H http://${{ steps.URL.outputs.stdout }}
 
     - run: terraform -chdir=Infra_CI/env/Homolog destroy -auto-approve
-
-
-      

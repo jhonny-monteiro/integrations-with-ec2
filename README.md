@@ -327,3 +327,4 @@ Os testes cobrem os principais handlers da API utilizando `httptest` e `testify/
 | `TestEditaUmAlunoHandler` | Status 200 e dados atualizados após edição |
 
 Cada teste que acessa o banco utiliza um aluno mock criado via `CriaAlunoMock()` e removido via `DeletaAlunoMock()` com `defer`.
+
